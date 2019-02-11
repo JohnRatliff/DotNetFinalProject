@@ -1,0 +1,83 @@
+@model UomConversion
+@{
+    ViewBag.LayoutLoggedIn = ViewBag.LoggedIn;
+    ViewBag.LayoutLoggedInUserFirstName = ViewBag.LoggedInUserFirstName;
+    ViewBag.LayoutTitle = "Uom Conversion Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-20 pb-10">
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Edit UomConversion Form Row: Begins -->
+            <h4><u><strong>Edit Unit Conversion</strong></u></h4>
+            <form class="mt-20" asp-controller="UomConversion" asp-action="UomConversionEditSave" method="post">
+
+                <!-- UomConversionSk is hidden, so it will be included in the Model on post -->
+                <Input type="hidden" asp-for="UomConversionSk">
+
+                <!-- UomTypeSk is disabled, so we use a hidden tag to return its value on post -->
+                <input type="hidden" name="UomTypeSk" value="@Model.UomTypeSk">
+
+                <!-- UomTypeSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomTypeSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="UomTypeSk" asp-items="@(new SelectList(ViewBag.AllUomTypes, "UomTypeSk", "UomTypeName"))" disabled>
+                            <option>-Select a Uom Type-</option>
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="UomTypeSk"></span>
+                </div>
+
+                <!-- ConvertFromUomSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="ConvertFromUomSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="ConvertFromUomSk" asp-items="@(new SelectList(ViewBag.AllUoms, "UomSk", "UomIdUomTypeName"))">
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="ConvertFromUomSk"></span>
+                </div>
+
+                <!-- ConvertToUomSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="ConvertToUomSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="ConvertToUomSk" asp-items="@(new SelectList(ViewBag.AllUoms, "UomSk", "UomIdUomTypeName"))">
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="ConvertToUomSk"></span>
+                </div>
+
+                <!-- ConversionFactor -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="ConversionFactor"></label>
+                    <div>
+                         <input class="form-control" asp-for="ConversionFactor">
+                    </div>
+                    <span class="color-error" asp-validation-for="ConversionFactor"></span>
+                </div>
+
+                <!-- Actions -->
+                <div class="row">
+                    <div class="col-xs-5 col-sm-2 col-md-1 col-lg-1">
+                        <!-- Save Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn  btn-primary btn-md">Save</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-sm-2 col-md-1 col-lg-1">
+                        <!-- Cancel Button -->
+                        <a class="btn btn-danger btn-md" asp-controller="UomConversion" asp-action="UomConversionNewListView">Cancel</a>
+                    </div>
+                    <div class="col-xs-2 col-sm-8 col-md-10 col-lg-10">
+            </form>
+            <!-- Edit UomConversion Form Row: Begins -->
+
+        </div>
+    </div>
+</div>
+

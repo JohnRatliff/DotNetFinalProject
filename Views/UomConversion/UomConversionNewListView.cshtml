@@ -1,0 +1,137 @@
+@model UomConversion
+@{
+    ViewBag.LayoutLoggedIn = ViewBag.LoggedIn;
+    ViewBag.LayoutLoggedInUserFirstName = ViewBag.LoggedInUserFirstName;
+    ViewBag.LayoutTitle = "Uom Conversion New/List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-20 pb-10">
+    <div class="row">
+
+        <!-- Add UomConversion Form (Left): Begins -->
+        <div class="col-sm-12 col-md-3 col-lg-3">
+
+            <!-- Add UomConversion Form Row: Begins -->
+            <h4 class="text-center"><u><strong>Add</strong></u></h4>
+            <form asp-controller="UomConversion" asp-action="UomConversionNewListView" method="post">
+
+                <!-- UomTypeSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomTypeSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="UomTypeSk" asp-items="@(new SelectList(ViewBag.AllUomTypes, "UomTypeSk", "UomTypeName"))"></select>
+                    </div>
+                    <span class="color-error" asp-validation-for="UomTypeSk"></span>
+                </div>
+
+                <!-- ConversionFactor -->
+                <input type="hidden" name="ConversionFactor" value="@Model.ConversionFactor">
+
+                <!-- Submit Button -->
+                <div class="form-actions text-right">
+                    <button type="submit" class="btn  btn-primary btn-md">Submit</button>
+                </div>
+            </form>
+
+
+            <!-- Add UomConversion Form Row: Begins -->
+            <form class="mt-20" asp-controller="UomConversion" asp-action="UomConversionNewSave" method="post">
+
+                <!-- UomTypeSk -->
+                <input type="hidden" name="UomTypeSk" value="@Model.UomTypeSk">
+
+                <!-- ConvertFromUomSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="ConvertFromUomSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="ConvertFromUomSk" asp-items="@(new SelectList(ViewBag.AllUoms, "UomSk", "UomIdUomTypeName"))">
+                            <option>-Select a From Uom-</option>
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="ConvertFromUomSk"></span>
+                </div>
+
+                <!-- ConvertToUomSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="ConvertToUomSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="ConvertToUomSk" asp-items="@(new SelectList(ViewBag.AllUoms, "UomSk", "UomIdUomTypeName"))">
+                            <option>-Select a To Uom-</option>
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="ConvertToUomSk"></span>
+                </div>
+
+                <!-- ConversionFactor -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="ConversionFactor"></label>
+                    <div>
+                         <input class="form-control" asp-for="ConversionFactor">
+                    </div>
+                    <span class="color-error" asp-validation-for="ConversionFactor"></span>
+                </div>
+
+                <!-- Add Button -->
+                <div class="form-actions text-right">
+                    <button type="submit" class="btn  btn-primary btn-md">Add</button>
+                </div>
+            </form>
+
+        </div>
+        <!-- Add UomConversion Form (Left): Ends -->
+
+
+        <!-- UomConversion Table (Right): Begins -->
+        <div class="col-sm-12 col-md-9 col-lg-9 border-left-2">
+            <h4 class="text-center"><u><strong>Unit Conversions</strong></u></h4>
+
+            <!-- UomConversion Grid Row: Begins -->
+            <div class="row mt-10">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="responsive tbl-scroll">
+                        <table class="table table-bordered table-striped table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">From</th>
+                                    <th scope="col">To</th>
+                                    <th scope="col">Conversion</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var uomConversion in @ViewBag.AllUomConversions)
+                                {
+                                    <tr>
+                                        <td>@uomConversion.UomType.UomTypeName</td>
+                                        <td>@uomConversion.ConvertFromUom.UomId</td>
+                                        <td>@uomConversion.ConvertToUom.UomId</td>
+                                        <td>@uomConversion.ConversionFactor</td>
+                                        <td class="text-center">
+                                            <a href="/UomConversion/Edit/@uomConversion.UomConversionSk">Edit</a>
+                                            <span>|</span>
+                                            <a href="/UomConversion/Delete/@uomConversion.UomConversionSk">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Uom Grid Row: Ends -->
+        </div>
+        <!-- Uom Table (Right): Ends -->
+
+    </div>
+
+    <div class="row mt-40">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="text-center">
+                <a href="/UomConversion/LoadData"><u>Load Standard Units of Measure and Unit Conversions</u></a>
+            </div>
+        </div>
+    </div>
+</div>
+

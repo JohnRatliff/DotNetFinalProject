@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap library -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <!-- JQuery Javascript -->
+    <!-- <script src="https://code.jquery.com/jquery-1.10.2.js"></script> -->
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
+    
+    <!-- Local Style Sheet -->
+    <link rel="stylesheet" type="text/css" media="screen" href="~/css/site.css" />
+
+    <!-- <script src="main.js"></script> -->
+    <!-- https://www.codeproject.com/Tips/891309/Custom-Confirmation-Box-using-Bootstrap-Modal-Dial -->
+    <!-- http://www.dotnetqueries.com/Article/84/show-confirmation-message-before-delete-using-bootstrap-modal-popup-in-asp-net-mvc -->
+    <script>
+        $(document).ready(function () {
+            // Start Document Ready function
+            // Declare global variable to hold primary key value.
+            var pkValue;
+            $('.delete-prompt').click(function () {
+                pkValue = $(this).attr('id');
+                console.log("delete-prompt->click");
+                $('#myModal').modal('show');
+            });
+
+            $('.delete-confirm').click(function () {
+                if (pkValue != '') {
+                    // Hide modal delete popup
+                    $('#myModal').modal('hide');
+
+                    // Delete the selected row
+                    $.ajax({
+                        url: `/Uom/Delete/${pkValue}`,
+                        type: 'get',
+                        //success: function () {
+                        //    location.reload();
+                        error: function (err) {
+                            if (!$('.modal-header').hasClass('alert-danger')) {
+                                $('.modal-header').removeClass('alert-success').addClass('alert-danger');
+                                $('.delete-confirm').css('display', 'none');
+                            }
+                            $('.success-message').html(err.statusText);
+                        }
+                    });
+
+                    // Remove child elements from tbody element
+                    $("#tbody-alluoms").empty();
+
+                    // Get alluoms after delete and display them in the tbody element
+                    console.log("ajax:AllUoms:Begin");
+                    $.ajax({
+                        url: '@Url.Action("AllUoms", "Uom")',
+                        type: "get",
+                        data: { id: ''},
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("ajax:AllUoms:Success");
+                        //    $.each(data, function (i, uom) {
+                        //        console.log(uom);
+                        //      var rows = 
+                        //        "<tr>"
+                        //      +    "<td"
+                        //      +    "<td>" + uom.UomType.UomTypeName + "</td>"
+                        //      +    "<td>" + uom.UomId + "</td>"
+                        //      +    "<td>" + uom.UomName + "</td>"
+                        //      +    "<td>" + uom.UomSk + "</td>"
+                        //      +    "<td class='text-center'>"
+                        //      +        "<a href=/Uom/Edit/" + uom.UomSk + ">Edit</a>"
+                        //      +        "<span>|</span>"
+                        //      +        "<a class='delete-prompt' href='javascript:void(0)' id='" + uom.UomSk + "'>Delete</a>"
+                        //      +    "</td>"
+                        //      + "</tr>"
+                        //      $("#tbody-alluoms").append(rows);
+                        //    });
+                        }, error: function (xhr, ajaxOptions, thrownError) {
+                            alert("Error");
+                            console.log(xhr.status);
+                            console.log(ajaxOptions);
+                            console.log(thrownError);
+                        }
+                    });
+
+                }
+            });
+            // End of the docuement ready function
+        });
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+    <!-- Main: Begin -->
+        <div class="row">
+            <div class="col-sm-12 col-md-1 col-lg-1"></div>
+            <div class="col-sm-12 col-md-10 col-lg-10 bt-box bt-box-4">
+
+                <!-- Header: Begins -->
+                <div class="row border-bottom-4">
+                    <!-- Nav bar -->
+                    <div class="col-sm-12 col-md-8 col-lg-8 mt-8">
+                        <div>
+                            <a asp-controller="Home" asp-action="Home">Home</a>
+                            <span>|</span>
+                            <!-- <div class="d-inline dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Transactions</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Order" asp-action="Orders">Orders</a>
+                                    <a class="dropdown-item" asp-controller="Shipment" asp-action="Shipments">Shipments</a>
+                                    <a class="dropdown-item" asp-controller="Invoice" asp-action="Invoices">Invoices</a>
+                                </div>
+                            </div>
+                            <span>|</span> -->
+                            <div class="d-inline dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Master Files</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="PaymentTerm" asp-action="PaymentTermNewListView">Payment Terms</a>
+                                    <a class="dropdown-item" asp-controller="Uom" asp-action="UomNewListView">Units of Measure</a>
+                                    <a class="dropdown-item" asp-controller="UomConversion" asp-action="UomConversionNewListView">Unit Conversions</a>
+                                </div>
+                            </div>
+                            <!-- <span>|</span>
+                            <div class="d-inline dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Inquiry</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Order" asp-action="Orders">Orders</a>
+                                    <a class="dropdown-item" asp-controller="Shipment" asp-action="Shipments">Shipments</a>
+                                    <a class="dropdown-item" asp-controller="Invoice" asp-action="Invoices">Invoices</a>
+                                </div>
+                            </div>
+                            <span>|</span>
+                            <div class="d-inline dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Setup</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Setting" asp-action="Settings">Settings</a>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- Logged In User -->
+                    <div class="col-sm-12 col-md-2 col-lg-2 mt-2">
+                        @if( ViewBag.LayoutLoggedIn == 1)
+                        {
+                        <div>Hi, @ViewBag.LayoutLoggedInUserFirstName</div>
+                        }
+                        else
+                        {
+                        <div>Not Logged In</div>
+                        }
+                    </div>
+
+                    <!-- Login/Logout -->
+                    <div class="col-sm-12 col-md-2 col-lg-2 pb-10">
+                        <div class="text-right">
+                            @if( ViewBag.LayoutLoggedIn == 1)
+                            {
+                            <form asp-controller="Login" asp-action="Logout" method="post">
+                                <div class="form-actions">
+                                    <button type="submit" class="btn  btn-link">Logout</button>
+                                </div>
+                            </form>
+                            }
+                            else
+                            {
+                            <form asp-controller="Login" asp-action="Login" method="get">
+                                <div class="form-actions">
+                                    <button type="submit" class="btn  btn-link">Login</button>
+                                </div>
+                            </form>
+                            }
+                        </div> 
+                    </div>
+                    
+                </div>
+                <!-- Header: Ends -->
+        
+                <!-- Render Body: Begins -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        @RenderBody()
+                    </div>
+                </div>
+                <!-- Header: Ends -->
+        
+            </div>
+            <div class="col-sm-12 col-md-2 col-lg-1"></div>
+
+    </div>
+</body>
+</html>

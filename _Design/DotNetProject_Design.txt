@@ -1,0 +1,62 @@
+Dev R&D (done):
+-------------------------------------------------------------------
+Use a MySql View  (done)
+Use a MySql Stored Procedure (done)
+Call a Modal confirmation dialog on delete (done)
+
+
+
+Dev R&D (ToDo - in no order):
+-------------------------------------------------------------------
+Call an Async confirmation dialog on delete
+
+
+
+Dev Refactoring (ToDo - in no order)
+-------------------------------------------------------------------
+Move stored procedure call from uomHelper to separate file and update related calls
+Move Modal Confirmation dialog code to a script file
+
+
+Data Tasks (done):
+--------------------------------------------------------------------
+UomTypes (done)
+Uoms (done)
+UomConversions (done)
+Users (done)
+
+
+Data Tasks (ToDo - In implementation order):
+--------------------------------------------------------------------
+Contacts
+PaymentTerms
+
+UserSettings (Users)
+
+Products (Uoms)
+
+PriceLists
+PriceListProducts (Products, Uoms)
+
+Accounts (PriceLists, Contacts)
+AccountContacts (Contacts)
+
+Settings (PriceLists)
+
+Orders (Accounts, PaymentTerms, PriceLists, Contacts)
+OrderProducts (Products, Uoms)
+
+
+
+
+
+Links
+-------------------------------------------------------------------
+
+Call a Stored Procedure:
+-https://stackoverflow.com/questions/34269106/read-connectionstring-outside-startup-from-appsetting-json-in-vnext
+
+Bootstrap Model Popup:
+-https://www.w3schools.com/bootstrap/bootstrap_ref_js_modal.asp
+
+

@@ -1,0 +1,73 @@
+@model Uom
+@{
+    ViewBag.LayoutLoggedIn = ViewBag.LoggedIn;
+    ViewBag.LayoutLoggedInUserFirstName = ViewBag.LoggedInUserFirstName;
+    ViewBag.LayoutTitle = "Uom Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-20 pb-10">
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Edit Uom Form Row: Begins -->
+            <h4><u><strong>Edit Unit of Measure</strong></u></h4>
+            <form class="mt-20" asp-controller="Uom" asp-action="UomEditSave" method="post">
+
+                <!-- UomSk (Hidden for use in model on return) -->
+                <Input type="hidden" asp-for="UomSk">
+
+                <!-- UomTypeSk is disabled, so we use a hidden tag to return its value on post -->
+                <input type="hidden" name="UomTypeSk" value="@Model.UomTypeSk">
+
+                <!-- UomTypeSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomTypeSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="UomTypeSk" asp-items="@(new SelectList(ViewBag.AllUomTypes, "UomTypeSk", "UomTypeName"))" disabled>
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="UomTypeSk"></span>
+                </div>
+
+                <!-- UomId -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomId"></label>
+                    <div>
+                         <input class="form-control" asp-for="UomId" autofocus="UomId">
+                    </div>
+                    <span class="color-error" asp-validation-for="UomId"></span>
+                </div>
+
+                <!-- UomName -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomName"></label>
+                    <div>
+                         <input class="form-control" asp-for="UomName">
+                    </div>
+                    <span class="color-error" asp-validation-for="UomName"></span>
+                </div>
+
+                <!-- Actions -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-1 col-lg-1">
+                        <!-- Save Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn  btn-primary btn-md">Save</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-1 col-lg-1">
+                        <!-- Cancel Button -->
+                        <a class="btn btn-danger btn-md" asp-controller="Uom" asp-action="UomNewListView">Cancel</a>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-lg-10"></div>
+                </div>
+            </form>
+
+        </div>
+        <!-- Edit Uom Form Row: Ends -->
+
+    </div>
+</div>
+

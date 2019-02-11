@@ -1,0 +1,136 @@
+@model Uom
+@{
+    ViewBag.LayoutLoggedIn = ViewBag.LoggedIn;
+    ViewBag.LayoutLoggedInUserFirstName = ViewBag.LoggedInUserFirstName;
+    ViewBag.LayoutTitle = "Uoms New/List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="mt-20 pb-10">
+    <div class="row">
+
+        <!-- Add Uom Form (Left): Begins -->
+        <div class="col-sm-12 col-md-3 col-lg-3">
+
+            <!-- Add Uom Form Row: Begins -->
+            <h4 class="text-center"><u><strong>Add</strong></u></h4>
+            <form asp-controller="Uom" asp-action="UomNewSave" method="post">
+
+                <!-- UomTypeSk -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomTypeSk"></label>
+                    <div>
+                        <select class="form-control" asp-for="UomTypeSk" asp-items="@(new SelectList(ViewBag.AllUomTypes, "UomTypeSk", "UomTypeName"))">
+                            <option>-Select a Uom Type-</option>
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="UomTypeSk"></span>
+                </div>
+
+                <!-- UomId -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomId"></label>
+                    <div>
+                         <input class="form-control" asp-for="UomId" autofocus="UomId">
+                    </div>
+                    <span class="color-error" asp-validation-for="UomId"></span>
+                </div>
+
+                <!-- UomName -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="UomName"></label>
+                    <div>
+                         <input class="form-control" asp-for="UomName">
+                    </div>
+                    <span class="color-error" asp-validation-for="UomName"></span>
+                </div>
+
+                <!-- Add Button -->
+                <div class="form-actions text-right">
+                    <button type="submit" class="btn  btn-primary btn-md">Add</button>
+                </div>
+            </form>
+
+        </div>
+        <!-- Add Uom Form (Left): Ends -->
+
+
+        <!-- Uom Table (Right): Begins -->
+        <div class="col-sm-12 col-md-9 col-lg-9 border-left-2">
+            <h4 class="text-center"><u><strong>Units of Measure</strong></u></h4>
+
+            <!-- Uom Grid Row: Begins -->
+            <div class="row mt-10">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="responsive tbl-scroll">
+                        <table class="table table-bordered table-striped table-hover table-condensed table-fixed">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-alluoms">
+                                @foreach(var uom in @ViewBag.AllUoms)
+                                {
+                                    <tr>
+                                        <td>@uom.UomType.UomTypeName</td>
+                                        <td>@uom.UomId</td>
+                                        <td>@uom.UomName</td>
+                                        <td class="text-center">
+                                            <a href="/Uom/Edit/@uom.UomSk">Edit</a>
+                                            <span>|</span>
+                                            <!-- <a class="delete-prompt" href="javascript:void(0)" id="@uom.UomSk">Delete</a> -->
+                                            <a href="/Uom/Delete/@uom.UomSk">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Uom Grid Row: Ends -->
+        </div>
+        <!-- Uom Table (Right): Ends -->
+
+    </div>
+
+    <div class="row mt-40">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="text-center">
+                <a href="/Uom/LoadData"><u>Load Standard Units of Measure and Unit Conversions</u></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal Delete Confirmation Popup: Begin -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert alert-danger">
+                <div class="text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <h4 class="modal-title text-right" id="myModalLabel">Confirm Delete</h4>
+            </div>
+            <div class="modal-body">
+                <p class="success-message">Delete the current Unit of Measure? </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success delete-confirm">Ok</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap Modal Delete Confirmation Popup: End -->
+
+

@@ -1,0 +1,127 @@
+@model PaymentTerm
+@{
+    ViewBag.LayoutLoggedIn = ViewBag.LoggedIn;
+    ViewBag.LayoutLoggedInUserFirstName = ViewBag.LoggedInUserFirstName;
+    ViewBag.LayoutTitle = "PaymentTerms New/List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="mt-20 pb-10">
+    <div class="row">
+
+        <!-- Add PaymentTerm Form (Left): Begins -->
+        <div class="col-sm-12 col-md-3 col-lg-3">
+
+            <!-- Add PaymentTerm Form Row: Begins -->
+            <h4 class="text-center"><u><strong>Add</strong></u></h4>
+            <form asp-controller="PaymentTerm" asp-action="PaymentTermNewSave" method="post">
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="Name"></label>
+                    <div>
+                         <input class="form-control" asp-for="Name" autofocus="Name">
+                    </div>
+                    <span class="color-error" asp-validation-for="Name"></span>
+                </div>
+
+                <!-- DiscountDays -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DiscountDays"></label>
+                    <div>
+                         <input class="form-control" asp-for="DiscountDays">
+                    </div>
+                    <span class="color-error" asp-validation-for="DiscountDays"></span>
+                </div>
+
+                <!-- DueDays -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DueDays"></label>
+                    <div>
+                         <input class="form-control" asp-for="DueDays">
+                    </div>
+                    <span class="color-error" asp-validation-for="DueDays"></span>
+                </div>
+
+                <!-- DiscountRate -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DiscountRate"></label>
+                    <div>
+                         <input class="form-control" asp-for="DiscountRate">
+                    </div>
+                    <span class="color-error" asp-validation-for="DiscountRate"></span>
+                </div>
+
+                <!-- DiscountDateOption -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DiscountDateOption"></label>
+                    <div>
+                        <select class="form-control" asp-for="DiscountDateOption">
+                            <option value="1">Order Date</option>
+                            <option value="2">Invoice Date</option>
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="DiscountDateOption"></span>
+                </div>
+
+                <!-- Add Button -->
+                <div class="form-actions text-right">
+                    <button type="submit" class="btn  btn-primary btn-md">Add</button>
+                </div>
+            </form>
+
+        </div>
+        <!-- Add PaymentTerm Form (Left): Ends -->
+
+
+        <!-- PaymentTerm Table (Right): Begins -->
+        <div class="col-sm-12 col-md-9 col-lg-9 border-left-2">
+            <h4 class="text-center"><u><strong>Payment Terms</strong></u></h4>
+
+            <!-- PaymentTerm Grid Row: Begins -->
+            <div class="row mt-10">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="responsive tbl-scroll">
+                        <table class="table table-bordered table-striped table-hover table-condensed table-fixed">
+                            <thead>
+                                <tr>
+                                    <th scope="col">PaymentTermSk</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Discount Days</th>
+                                    <th scope="col">Due Days</th>
+                                    <th scope="col">Discount Rate</th>
+                                    <th scope="col">Discount Date Option</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var paymentTerm in @ViewBag.AllPaymentTerms)
+                                {
+                                    <tr>
+                                        <td>@paymentTerm.PaymentTermSk</td>
+                                        <td>@paymentTerm.Name</td>
+                                        <td>@paymentTerm.DiscountDays</td>
+                                        <td>@paymentTerm.DueDays</td>
+                                        <td>@paymentTerm.DiscountRate</td>
+                                        <td>@paymentTerm.DiscountDateOption</td>
+                                        <td class="text-center">
+                                            <a href="/PaymentTerm/Edit/@paymentTerm.PaymentTermSk">Edit</a>
+                                            <span>|</span>
+                                            <a href="/PaymentTerm/Delete/@paymentTerm.PaymentTermSk">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- PaymentTerm Grid Row: Ends -->
+        </div>
+        <!-- PaymentTerm Table (Right): Ends -->
+
+    </div>
+
+</div>

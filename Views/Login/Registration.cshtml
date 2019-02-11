@@ -1,0 +1,77 @@
+@model User
+@{
+    ViewBag.LayoutLoggedIn = ViewBag.LoggedIn;
+    ViewBag.LayoutLoggedInUserFirstName = ViewBag.LoggedInUserFirstName;
+    ViewBag.LayoutTitle = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-4">
+    <div class="col-sm-12 col-md-3 col-lg-3"></div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+
+        <!-- Registration Title: Begin -->
+        <div class="row">
+            <div class="col-sm-12 col-md-10 col-lg-10">
+                <h1>Register</h1>
+            </div>
+            <div class="col-sm-12 col-md-2 col-lg-2">
+                <div class="mt-20">
+                    <a asp-controller="Login" asp-action="Login">Login</a>
+                </div>
+            </div>
+        </div>
+        <!-- Registration Title: Ends -->
+
+        <!-- Registration Form: Begin -->
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <form asp-controller="Login" asp-action="RegistrationSave" method="post">
+                    <input type="hidden" name="Description">
+                    <input type="hidden" name="UserLevel" value="2">
+                    <div class="form-group">
+                        <label class="col-form-label" asp-for="Email"></label>
+                        <div>
+                            <input class="form-control" asp-for="Email" autofocus="Email">
+                        </div>
+                        <span class="color-error" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" asp-for="FirstName"></label>
+                        <div>
+                            <input class="form-control" asp-for="FirstName">
+                        </div>
+                        <span class="color-error" asp-validation-for="FirstName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" asp-for="LastName"></label>
+                        <div>
+                            <input class="form-control" asp-for="LastName">
+                        </div>
+                        <span class="color-error" asp-validation-for="LastName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" asp-for="Password"></label>
+                        <div>
+                            <input class="form-control" asp-for="Password">
+                        </div>
+                        <span class="color-error" asp-validation-for="Password"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" asp-for="ConfirmPassword"></label>
+                        <div>
+                            <input class="form-control" asp-for="ConfirmPassword">
+                        </div>
+                        <span class="color-error" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn  btn-primary btn-md">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Registration Form: End -->
+
+    </div>
+    <div class="col-sm-12 col-md-3 col-lg-3"></div>
+</div>

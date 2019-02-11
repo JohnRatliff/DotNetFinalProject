@@ -1,0 +1,90 @@
+@model PaymentTerm
+@{
+    ViewBag.LayoutLoggedIn = ViewBag.LoggedIn;
+    ViewBag.LayoutLoggedInUserFirstName = ViewBag.LoggedInUserFirstName;
+    ViewBag.LayoutTitle = "PaymentTerm Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-20 pb-10">
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Edit PaymentTerm Form Row: Begins -->
+            <h4><u><strong>Edit Payment Term</strong></u></h4>
+            <form class="mt-20" asp-controller="PaymentTerm" asp-action="PaymentTermEditSave" method="post">
+
+                <!-- PaymentTermSk (Hidden for use in model on return) -->
+                <Input type="hidden" asp-for="PaymentTermSk">
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="Name"></label>
+                    <div>
+                         <input class="form-control" asp-for="Name" autofocus="Name">
+                    </div>
+                    <span class="color-error" asp-validation-for="Name"></span>
+                </div>
+
+                <!-- DiscountDays -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DiscountDays"></label>
+                    <div>
+                         <input class="form-control" asp-for="DiscountDays">
+                    </div>
+                    <span class="color-error" asp-validation-for="DiscountDays"></span>
+                </div>
+
+                <!-- DueDays -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DueDays"></label>
+                    <div>
+                         <input class="form-control" asp-for="DueDays">
+                    </div>
+                    <span class="color-error" asp-validation-for="DueDays"></span>
+                </div>
+
+                <!-- DiscountRate -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DiscountRate"></label>
+                    <div>
+                         <input class="form-control" asp-for="DiscountRate">
+                    </div>
+                    <span class="color-error" asp-validation-for="DiscountRate"></span>
+                </div>
+
+                <!-- DiscountDateOption -->
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="DiscountDateOption"></label>
+                    <div>
+                        <select class="form-control" asp-for="DiscountDateOption">
+                            <option value="1">Order Date</option>
+                            <option value="2">Invoice Date</option>
+                        </select>
+                    </div>
+                    <span class="color-error" asp-validation-for="DiscountDateOption"></span>
+                </div>
+
+                <!-- Actions -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-1 col-lg-1">
+                        <!-- Save Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn  btn-primary btn-md">Save</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-1 col-lg-1">
+                        <!-- Cancel Button -->
+                        <a class="btn btn-danger btn-md" asp-controller="PaymentTerm" asp-action="PaymentTermNewListView">Cancel</a>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-lg-10"></div>
+                </div>
+            </form>
+
+        </div>
+        <!-- Edit PaymentTerm Form Row: Ends -->
+
+    </div>
+</div>
+
