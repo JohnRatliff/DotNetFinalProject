@@ -4,20 +4,20 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
+-- -- ---------------------------------------------------
 -- Schema DotNetFinalProject
--- -----------------------------------------------------
+-- -- ---------------------------------------------------
 DROP SCHEMA IF EXISTS DotNetFinalProject;
 
--- -----------------------------------------------------
+-- -- ---------------------------------------------------
 -- Schema DotNetFinalProject
--- -----------------------------------------------------
+-- -- ---------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS DotNetFinalProject DEFAULT CHARACTER SET utf8;
 USE DotNetFinalProject;
 
--- -----------------------------------------------------
+-- -- ---------------------------------------------------
 -- Table DotNetFinalProject.users
--- -----------------------------------------------------
+-- -- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.users;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.users (
@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.users (
   UNIQUE INDEX Users_Email_UNIQUE (Email ASC));
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.paymentterms
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.paymentterms ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.paymentterms (
@@ -52,9 +52,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.paymentterms (
   UNIQUE INDEX PaymentTerms_Name_UNIQUE (Name ASC));
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.contacts
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.contacts ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.contacts (
@@ -73,9 +73,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.contacts (
   PRIMARY KEY (ContactSk));
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.uomtypes
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.uomtypes ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.uomtypes (
@@ -87,9 +87,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.uomtypes (
   UNIQUE INDEX uomtypes_UomTypeName_UNIQUE (UomTypeName ASC));
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.uoms
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.uoms ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.uoms (
@@ -110,9 +110,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.uoms (
     ON UPDATE CASCADE);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.uomconversions
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.uomconversions ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.uomconversions (
@@ -145,9 +145,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.uomconversions (
     ON UPDATE CASCADE);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.products
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.products ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.products (
@@ -187,9 +187,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.products (
     ON UPDATE NO ACTION);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.pricelists
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.pricelists ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.pricelists (
@@ -201,9 +201,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.pricelists (
   UNIQUE INDEX pricelists_PriceListName_UNIQUE (PriceListName ASC));
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.pricelistproducts
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.pricelistproducts ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.pricelistproducts (
@@ -238,9 +238,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.pricelistproducts (
     ON UPDATE NO ACTION);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.orders
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.orders ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.orders (
@@ -298,9 +298,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.orders (
 
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.orderproducts
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.orderproducts ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.orderproducts (
@@ -337,9 +337,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.orderproducts (
     ON UPDATE NO ACTION);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.accounts
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.accounts ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.accounts (
@@ -383,15 +383,15 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.accounts (
     ON UPDATE NO ACTION);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.accountcontacts
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.accountcontacts ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.accountcontacts (
   AccountContactSK INT NOT NULL AUTO_INCREMENT,
   AccountSk INT NOT NULL,
-  ContactType INT NOT NULL DEFAULT (1), -- 1=SoldTo, 2=BillTo, 3=ShipTo
+  ContactType INT NOT NULL DEFAULT 1, -- 1=SoldTo, 2=BillTo, 3=ShipTo
   ContactSK INT NOT NULL,
   CreatedAt DATETIME NOT NULL DEFAULT NOW(),
   UpdatedAt DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
@@ -410,9 +410,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.accountcontacts (
     ON UPDATE NO ACTION);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.settings
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.settings ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.settings (
@@ -433,9 +433,9 @@ CREATE TABLE IF NOT EXISTS DotNetFinalProject.settings (
     ON UPDATE NO ACTION);
 
 
------------------------------------------------------
+-- ---------------------------------------------------
 -- Table DotNetFinalProject.usersettings
------------------------------------------------------
+-- ---------------------------------------------------
 DROP TABLE IF EXISTS DotNetFinalProject.usersettings ;
 
 CREATE TABLE IF NOT EXISTS DotNetFinalProject.usersettings (
